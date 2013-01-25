@@ -1,0 +1,101 @@
+// Microsoft Visual C++ generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include <windows.h>
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (United States) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE 
+BEGIN
+    "#include <windows.h>\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE 
+BEGIN
+    "#include ""PSGamma.pipl""\r\n"
+    "#include ""About.rc""\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+PSGAMMADIALOG DIALOGEX 34, 40, 229, 170
+STYLE DS_SETFONT | DS_MODALFRAME | WS_POPUP | WS_CAPTION
+CAPTION "Adjust Gamma"
+FONT 8, "MS Sans Serif", 0, 0, 0x0
+BEGIN
+    DEFPUSHBUTTON   "&OK",1,169,10,49,14,BS_NOTIFY
+    PUSHBUTTON      "&Cancel",2,169,29,49,14,BS_NOTIFY
+    CTEXT           "",5,14,5,140,116,NOT WS_VISIBLE
+    CONTROL         "",IDC_GAMMASLIDER,"msctls_trackbar32",TBS_TOP | TBS_NOTICKS | WS_TABSTOP,12,145,145,15
+    LTEXT           "Gamma:",IDC_GAMMASTATIC,16,132,27,8
+    EDITTEXT        IDC_GAMMAEDIT,125,131,27,14,ES_AUTOHSCROLL
+    CONTROL         "Invert",IDC_CHECKINVERT,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,160,132,34,10
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO
+BEGIN
+    "PSGAMMADIALOG", DIALOG
+    BEGIN
+        LEFTMARGIN, 3
+        RIGHTMARGIN, 228
+        TOPMARGIN, 3
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+#endif    // English (United States) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#include "PSGamma.pipl"
+#include "About.rc"
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+
