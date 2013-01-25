@@ -1,16 +1,3 @@
-// ADOBE SYSTEMS INCORPORATED
-// Copyright  1993 - 2002 Adobe Systems Incorporated
-// All Rights Reserved
-//
-// NOTICE:  Adobe permits you to use, modify, and distribute this 
-// file in accordance with the terms of the Adobe license agreement
-// accompanying it.  If you have received this file from a source
-// other than Adobe, then your use, modification, or distribution
-// of it requires the prior written permission of Adobe.
-//-------------------------------------------------------------------------------
-//	Includes
-//-------------------------------------------------------------------------------
-
 #include "PSGamma.h"
 #include "PSGammaUI.h"
 #include "FilterBigDocument.h"
@@ -18,27 +5,12 @@
 #include <CommCtrl.h>
 #include <math.h>
 
-//-------------------------------------------------------------------------------
-// local routines
-//-------------------------------------------------------------------------------
 void GetProxyItemRect(HWND hDlg);
 void PaintProxy(HWND hDlg);
 void UpdateProxyItem(HWND hDlg);
 
+//
 
-
-//-------------------------------------------------------------------------------
-//
-// GammaProc
-//
-// The Windows callback to manage our dialog box. This is a very simple
-// implementation. I didn't add much error checking. There is no zooming in or
-// out on the Proxy. Just a simple dialog to get some simple parameters.
-// 
-// NOTE:
-// You must use the DLLExport macro so Windows can find this procedures address.
-//
-//-------------------------------------------------------------------------------
 DLLExport BOOL WINAPI GammaProc(HWND hDlg, 
 								UINT wMsg, 
 								WPARAM wParam, 
@@ -162,7 +134,7 @@ DLLExport BOOL WINAPI GammaProc(HWND hDlg,
 					if (cmd == BN_CLICKED)
 					{
 						DeleteProxyBuffer();
-						DeleteDissolveBuffer();
+						DeleteGammaBuffer();
 						EndDialog(hDlg, item);
 						return TRUE;
 					}
@@ -178,15 +150,6 @@ DLLExport BOOL WINAPI GammaProc(HWND hDlg,
 	return TRUE;
 }
 
-
-
-//-------------------------------------------------------------------------------
-//
-// DoUI
-//
-// Pop the UI and return true if the last item was the OK button.
-// 
-//-------------------------------------------------------------------------------
 Boolean DoUI(void)
 {
 	PlatformData* platform = (PlatformData*)(gFilterRecord->platformData);
@@ -201,15 +164,6 @@ Boolean DoUI(void)
 	return (result == kDOK);
 }
 
-
-
-//-------------------------------------------------------------------------------
-//
-// UpdateProxyItem
-//
-// Force the WM_PAINT message to the GammaProc routine.
-//
-//-------------------------------------------------------------------------------
 void UpdateProxyItem(HWND hDlg)
 {
 	RECT imageRect;
@@ -225,15 +179,6 @@ void UpdateProxyItem(HWND hDlg)
 	}
 }
 
-
-
-//-------------------------------------------------------------------------------
-//
-// GetProxyItemRect
-//
-// Get the size of the proxy into the proxyRect variable. In client cordinates.
-// 
-//-------------------------------------------------------------------------------
 void GetProxyItemRect(HWND hDlg)
 {
 	RECT	wRect;
@@ -248,20 +193,6 @@ void GetProxyItemRect(HWND hDlg)
 	gData->proxyRect.bottom = (short)wRect.bottom;
 }
 
-
-
-//-------------------------------------------------------------------------------
-//
-// PaintProxy
-//
-// Paint the proxy rectangle using the displayPixels() call back in the
-// gFilterRecord.
-//
-// NOTE:
-// 16 bit pixel data does not work for the current version of Photoshop. You
-// scale all of the pixel data down to 8 bit values and then display. I din't go
-// through that exercise.
-// 
 //-------------------------------------------------------------------------------
 void PaintProxy(HWND hDlg)
 {
@@ -361,18 +292,6 @@ void PaintProxy(HWND hDlg)
 	EndPaint(hDlg, (LPPAINTSTRUCT) &ps);
 }
 
-
-
-//-------------------------------------------------------------------------------
-//
-// DoAbout
-//
-// Pop a simple about box for this plug in.
-//
-// NOTE:	The global gFilterRecord is NOT a FilterRecord*. You must cast it to
-//			an AboutRecord*. See PIAbout.h
-//
-//-------------------------------------------------------------------------------
 void DoAbout(void)
 {
 	AboutRecord* aboutRecord = (AboutRecord*)gFilterRecord;
