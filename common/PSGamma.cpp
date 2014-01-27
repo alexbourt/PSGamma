@@ -443,19 +443,19 @@ void InitData(void)
 void UpdateGammaLut()
 {
 	const double invGamma = 
-		gParams->invert
+		  gParams->invert
 		? gParams->gamma
 		: 1 / gParams->gamma;
 
 	// 8-bit
 
 	for (int i = 0; i < 0x100; i++)
-		gammaLut8[i] = (int)(pow((double)i / 0xFF, invGamma) * 0xFF + 0.5);
+		gammaLut8[i] = I8(pow(I8_TO_DOUBLE(i), invGamma));
 
 	// 16-bit
 
-	for (int i = 0; i < 0x8001; i++)
-		gammaLut16[i] = (int)(pow((double)i / 0x8000, invGamma) * 0x8000 + 0.5);
+	for (int i = 0; i <= Q15(1); i++)
+		gammaLut16[i] = Q15(pow(Q15_TO_DOUBLE(i), invGamma));
 }
 
 void CreateGammaBuffer(const int32 width, const int32 height)

@@ -53,15 +53,22 @@ extern "C" void UpdateProxyBuffer(void);
 void DeleteProxyBuffer(void);
 int32 DisplayPixelsMode(int16 mode);
 
+#define INT15(d)	RND((d) * 0x8000)
+#define Q15(d)		(unsigned short)INT15(d)
+
 #define I8_MULT(a, b, ut)	 ((ut) = (a) * (b) + 0x80, ((((ut) >> 8) + (ut)) >> 8))
 #define I8_LERP(a, b, f, st) ((a) + I8_MULT((b) - (a), (f), (st)))
 
-#define IQ15(d)	((int)((double)(d) * (double)0x8000 + 0.5))
-
-#define  Q15_MULTR(a, b)	((unsigned short)(((int)(a) * (int)(b) + IQ15(0.5)) >> 15))
-#define  Q15_LERP(a, b, f)	((a) + Q15_MULTR((b) - (a), (f)))
+#define Q15_MULTR(a, b)		(unsigned short)(((int)(a) * (int)(b) + INT15(0.5)) >> 15)
+#define Q15_LERP(a, b, f)	((a) + Q15_MULTR((b) - (a), (f)))
 
 #define I8_TO_I9(i8)  (((unsigned short)(i8) << 1) | ((i8) >> 7))
-#define I8_TO_Q15(i8) (((I8_TO_I9(i8) + 1) >> 1) << 7)
+#define I9_TO_Q8(i9)  (((i9) + 1) >> 1)
+#define I8_TO_Q8(i8)  I9_TO_Q8(I8_TO_I9(i8))
+#define Q8_TO_Q15(q8) ((q8) << 7)
+#define I8_TO_Q15(i8) Q8_TO_Q15(I8_TO_Q8(i8))
+
+#define I8_TO_DOUBLE(i8)	((double)(i8)  / I8(1))
+#define Q15_TO_DOUBLE(q15)	((double)(q15) / Q15(1))
 
 #endif
